@@ -113,7 +113,7 @@ env_file_value() {
 }
 
 MCP_IMAGE_BASE="${MCP_IMAGE_BASE:-$(env_file_value MCP_IMAGE_BASE)}"
-MCP_IMAGE_BASE="${MCP_IMAGE_BASE:-ghcr.io/forescout/forescout-mcp-eyesight}"
+MCP_IMAGE_BASE="${MCP_IMAGE_BASE:-crcustconstgappeaus001.azurecr.io/forescout/forescout-mcp-eyesight}"
 MCP_IMAGE_TAG="${MCP_IMAGE_TAG:-$(env_file_value MCP_IMAGE_TAG)}"
 MCP_IMAGE_TAG="${MCP_IMAGE_TAG:-latest}"
 MCP_IMAGE="${MCP_IMAGE_BASE}:${MCP_IMAGE_TAG}"
@@ -152,7 +152,7 @@ fi
 if [ "$bundle_complete" != "1" ]; then
   echo "install.sh: no docker-compose.yml in $(pwd); pulling install files from ${MCP_IMAGE}"
   if ! docker pull "$MCP_IMAGE"; then
-    echo "install.sh: could not pull ${MCP_IMAGE}. Check network access to ghcr.io and the image/tag name, then re-run." >&2
+    echo "install.sh: could not pull ${MCP_IMAGE}. Check network access to ${MCP_IMAGE_BASE%%/*} and the image/tag name, then re-run." >&2
     exit 1
   fi
   cid="$(docker create "$MCP_IMAGE")"
